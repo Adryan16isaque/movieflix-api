@@ -1,6 +1,7 @@
 {
     "name": "movieflix-api",
     "version": "1.0.0",
+    "type": "module",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -11,8 +12,12 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@types/express": "^5.0.6",
         "prettier": "3.8.3",
         "tsx": "^4.22.3",
         "typescript": "^6.0.3"
+    },
+    "dependencies": {
+        "express": "^5.2.1"
     }
 }
