@@ -109,6 +109,35 @@ app.delete('/movies/:id', async (req, res) => {
     res.status(200).send()
 })
 
+app.get('/movies/:genreName', async (req, res) => {
+    //recebr o nome do genero pelo paramentros da rota
+    console.log(req.params.genreName)
+
+    //filtrar os filmes do bando pelo genero
+    try {
+        const moviesFilteresByGenreName = await prisma.movie.findMany({
+            include: {
+                genres: true,
+                languages: true,
+            },
+            where: {
+                genres: {
+                    name: {
+                        equals: req.params.genreName,
+                        mode: 'insensitive',
+                    },
+                },
+            },
+        })
+        //retornar os filmes filtrados na respostas da rota
+        res.status(200).send(moviesFilteresByGenreName)
+    } catch (error) {
+        res.status(500).send({
+            message: 'Nao foi possivel buscar filmes por generos',
+        })
+    }
+})
+
 app.listen(port, () => {
     console.log(`Servidor em execucao na porta ${port}`)
 })
